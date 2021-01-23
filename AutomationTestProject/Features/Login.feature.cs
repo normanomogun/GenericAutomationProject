@@ -75,11 +75,11 @@ namespace AutomationTestProject.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Login with valid Credentials")]
-        [NUnit.Framework.CategoryAttribute("mytest")]
+        [NUnit.Framework.CategoryAttribute("TestLogin")]
         public virtual void LoginWithValidCredentials()
         {
             string[] tagsOfScenario = new string[] {
-                    "mytest"};
+                    "TestLogin"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login with valid Credentials", null, tagsOfScenario, argumentsOfScenario);
 #line 5
