@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutomationFramework.Base;
+﻿using AutomationFramework.Base;
+using AutomationFramework.Extensions;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+
 //using ExpectedConditions = SeleniumExtras.WaitHelpers.ExpectedConditions;
 
 namespace AutomationTestProject.Pages
@@ -14,7 +12,7 @@ namespace AutomationTestProject.Pages
         {
         }
 
-        public IWebElement lnkLogin => _parallelConfig.Driver.FindElement(By.Id("loginLink"));
+        public IWebElement lnkLogin => _parallelConfig.Driver.FindById("loginLink");
         public IWebElement lnkEmployeeList => GetNavItem("Employee List");
         public IWebElement loggedInTitle => GetNavItem("Hello");
         public bool IsBrowserOnHomePage()
