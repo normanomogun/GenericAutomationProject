@@ -13,7 +13,6 @@ namespace AutomationTestProject.Pages
         public EmployeeListPage(ParallelConfig parallelConfig) : base(parallelConfig)
         {
         }
-        //public IWebElement CreateNewButton => _parallelConfig.Driver.FindElement(By.CssSelector(".btn.btn-primary"));
         public IWebElement CreateNewButton => _parallelConfig.Driver.FindByCssSelector(".btn.btn-primary");
        
 

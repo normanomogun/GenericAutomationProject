@@ -2,7 +2,6 @@
 using AutomationFramework.Extensions;
 using OpenQA.Selenium;
 
-//using ExpectedConditions = SeleniumExtras.WaitHelpers.ExpectedConditions;
 
 namespace AutomationTestProject.Pages
 {
