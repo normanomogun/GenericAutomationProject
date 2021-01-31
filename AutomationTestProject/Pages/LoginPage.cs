@@ -8,11 +8,14 @@ namespace AutomationTestProject.Pages
 {
     public class LoginPage : BasePage
     {
+        public LoginPage(ParallelConfig parallelConfig) : base(parallelConfig)
+        {
+        }
 
-        public IWebElement txtUserName => Driver.FindElement(By.Id("UserName"));
-        public IWebElement txtPassword => Driver.FindElement(By.Id("Password"));
+        public IWebElement txtUserName => _parallelConfig.Driver.FindElement(By.Id("UserName"));
+        public IWebElement txtPassword => _parallelConfig.Driver.FindElement(By.Id("Password"));
        
-        public IWebElement btnLogin => Driver.FindElement(By.CssSelector("input.btn"));
+        public IWebElement btnLogin => _parallelConfig.Driver.FindElement(By.CssSelector("input.btn"));
         // public IWebElement lnkEmployeeList => GetNavItem("Employee List");
         
 
@@ -46,7 +49,9 @@ namespace AutomationTestProject.Pages
         public HomePage ClickSubmitButton()
         {
             btnLogin.Submit();
-            return GetInstance<HomePage>();
+            return new HomePage(_parallelConfig);
         }
+
+        
     }
 }

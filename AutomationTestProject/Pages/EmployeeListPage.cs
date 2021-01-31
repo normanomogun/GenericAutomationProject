@@ -9,15 +9,18 @@ namespace AutomationTestProject.Pages
 {
     public class EmployeeListPage : BasePage
     {
-        public IWebElement CreateNewButton => Driver.FindElement(By.CssSelector(".btn.btn-primary"));
-        public EmployeeListPage() : base()
+        public EmployeeListPage(ParallelConfig parallelConfig) : base(parallelConfig)
         {
         }
+        public IWebElement CreateNewButton => _parallelConfig.Driver.FindElement(By.CssSelector(".btn.btn-primary"));
+       
 
         public CreateEmployeePage ClickCreateNewButton()
         {
             CreateNewButton.Click();
-            return GetInstance<CreateEmployeePage>();
+            return new CreateEmployeePage(_parallelConfig);
         }
+
+       
     }
 }

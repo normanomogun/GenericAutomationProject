@@ -11,12 +11,19 @@ using TechTalk.SpecFlow.Assist;
 namespace AutomationTestProject.Steps
 {
     [Binding]
-    public class EmployeeSteps : BaseClass
+    public class EmployeeSteps : BaseStep
     {
+        private ParallelConfig _parallelConfig;
+        public EmployeeSteps(ParallelConfig parallelConfig) : base(parallelConfig)
+        {
+            _parallelConfig = parallelConfig;
+        }
+
+
         [When(@"I click createnew button")]
         public void WhenIClickCreatenewButton()
         {
-            CurrentPage = CurrentPage.As<EmployeeListPage>().ClickCreateNewButton();
+            _parallelConfig.CurrentPage = _parallelConfig.CurrentPage.As<EmployeeListPage>().ClickCreateNewButton();
         }
 
         [When(@"I enter employee details")]
@@ -28,15 +35,17 @@ namespace AutomationTestProject.Steps
             // var dur = empDetails.DurationWorked;
             // var grad = empDetails.Grade;
             // var email = empDetails.Email;
-            CurrentPage.As<CreateEmployeePage>().EnterDetails(empDetails.Name, empDetails.Salary.ToString(),
-                empDetails.DurationWorked.ToString(), empDetails.Grade.ToString(), empDetails.Email);
+            //CurrentPage.As<CreateEmployeePage>().EnterDetails(empDetails.Name, empDetails.Salary.ToString(), empDetails.DurationWorked.ToString(), empDetails.Grade.ToString(), empDetails.Email);
+            _parallelConfig.CurrentPage.As<CreateEmployeePage>().EnterDetails(empDetails.Name, empDetails.Salary.ToString(), empDetails.DurationWorked.ToString(), empDetails.Grade.ToString(), empDetails.Email);
         }
 
         [When(@"I click create button")]
         public void WhenIClickCreateButton()
         {
-            CurrentPage = CurrentPage.As<CreateEmployeePage>().ClickCreateButton();
+            //CurrentPage = CurrentPage.As<CreateEmployeePage>().ClickCreateButton();
+            _parallelConfig.CurrentPage = _parallelConfig.CurrentPage.As<CreateEmployeePage>().ClickCreateButton();
         }
 
+        
     }
 }

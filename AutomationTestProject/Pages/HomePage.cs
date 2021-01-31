@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using AutomationFramework.Base;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+//using ExpectedConditions = SeleniumExtras.WaitHelpers.ExpectedConditions;
 
 namespace AutomationTestProject.Pages
 {
     public class HomePage: BasePage
     {
-        public IWebElement lnkLogin => Driver.FindElement(By.Id("loginLink"));
+        public HomePage(ParallelConfig parallelConfig) : base(parallelConfig)
+        {
+        }
+
+        public IWebElement lnkLogin => _parallelConfig.Driver.FindElement(By.Id("loginLink"));
         public IWebElement lnkEmployeeList => GetNavItem("Employee List");
         public IWebElement loggedInTitle => GetNavItem("Hello");
         public bool IsBrowserOnHomePage()
@@ -18,8 +24,9 @@ namespace AutomationTestProject.Pages
 
         public LoginPage ClickLoginLink()
         {
+          
             lnkLogin.Click();
-            return GetInstance<LoginPage>();
+            return new LoginPage(_parallelConfig);
         }
 
         public bool IsSuccessFullyLoggedIn()
@@ -31,13 +38,13 @@ namespace AutomationTestProject.Pages
         public EmployeeListPage ClickEmployeeListLink()
         {
             lnkEmployeeList.Click();
-            return GetInstance<EmployeeListPage>();
+            return new EmployeeListPage(_parallelConfig);
         }
 
         private IWebElement GetNavItem(string navItemName)
         {
             IWebElement element = null;
-            var navItems = Driver.FindElements(By.CssSelector(".navbar-collapse ul li"));
+            var navItems = _parallelConfig.Driver.FindElements(By.CssSelector(".navbar-collapse ul li"));
             foreach (var navItem in navItems)
             {
                 var navItemTxt = navItem.Text;
@@ -49,5 +56,7 @@ namespace AutomationTestProject.Pages
 
             return element;
         }
+
+       
     }
 }

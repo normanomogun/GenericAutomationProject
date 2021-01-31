@@ -10,23 +10,18 @@ namespace AutomationFramework.Base
 {
     public class BaseClass : Steps // TODO: Need to find another way. Should not be inheriting from steps
     {
-        //public BasePage SavedCurrentPage { get; set; }
-        // public BasePage CurrentPage
+
+        // public BasePage CurrentPage NO LONGER NEEDED AS STATIC
         // {
-        //     get
-        //     {
-        //         return SavedCurrentPage;
-        //     }
-        //     set
-        //     {
-        //         SavedCurrentPage = value;
-        //     }
+        //     get => ScenarioContext.Get<BasePage>("currentpage");
+        //     set => ScenarioContext.Set(value, "currentpage");
         // }
 
-        public BasePage CurrentPage
+        public ParallelConfig _parallelConfig;
+
+        public BaseClass(ParallelConfig parallelConfig)
         {
-            get => ScenarioContext.Get<BasePage>("currentpage");
-            set => ScenarioContext.Set(value, "currentpage");
+            _parallelConfig = parallelConfig;
         }
 
         public IWebDriver Driver { get; set; }
@@ -40,7 +35,8 @@ namespace AutomationFramework.Base
         {
             TPage pageInstance = new TPage()
             {
-                Driver = DriverContext.Driver // initialised here when you create a new page 
+                //Driver = DriverContext.Driver // initialised here when you create a new page 
+                Driver = _parallelConfig.Driver // initialised here when you create a new page 
             };
             return pageInstance;
         }

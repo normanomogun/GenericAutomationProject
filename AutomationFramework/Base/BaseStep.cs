@@ -4,7 +4,10 @@ using System.Text;
 
 namespace AutomationFramework.Base
 {
-    class BaseStep
+    public class BaseStep : BaseClass
     {
+        public BaseStep(ParallelConfig parallelConfig) : base(parallelConfig)
+        {
+        }
     }
 }

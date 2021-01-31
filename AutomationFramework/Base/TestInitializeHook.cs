@@ -6,6 +6,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 
 namespace AutomationFramework.Base
@@ -13,20 +14,18 @@ namespace AutomationFramework.Base
     /// <summary>
     /// This class must be inherited by the hooks in test framework
     /// </summary>
-    public abstract class TestInitializeHook
+    public class TestInitializeHook
     {
+        private ParallelConfig _parallelConfig;
 
-        
+        protected TestInitializeHook(ParallelConfig parallelConfig)
+        {
+            _parallelConfig = parallelConfig;
+        }
+
         public BrowserType Browser { get; set; }
 
-        // public TestInitializeHook(BrowserType browser)
-        // {
-        //     //Browser = browser;
-        // }
-        public TestInitializeHook()
-        {
-            //Browser = browser;
-        }
+        
         public void InitializeSettings()
         {
             ConfigReader.SetFrameworkSettings();
@@ -34,23 +33,6 @@ namespace AutomationFramework.Base
             //OpenBrowser(GetBrowserOptions(Settings.Browser));
         }
 
-        // private DriverOptions GetBrowserOptions(BrowserType browser)
-        // {
-        //     switch (browser)
-        //     {
-        //         case BrowserType.Internet_explorer:
-        //             return new InternetExplorerOptions();
-        //         case BrowserType.Chrome:
-        //             return new ChromeOptions();
-        //             
-        //         case BrowserType.Firefox:
-        //             return new FirefoxOptions();
-        //         case BrowserType.Safari:
-        //             return new SafariOptions();
-        //         default:
-        //             return new ChromeOptions();
-        //     }
-        // }
 
         private void OpenBrowser(BrowserType browserType)
         {
@@ -59,9 +41,15 @@ namespace AutomationFramework.Base
                 case BrowserType.Internet_explorer:
                     break;
                 case BrowserType.Chrome:
-                    DriverContext.Driver = new ChromeDriver();
-                    DriverContext.Browser = new Browser(DriverContext.Driver);
-                    break;
+                   // DriverContext.Driver = new ChromeDriver();
+                    //DriverContext.Browser = new Browser(DriverContext.Driver);
+                   ChromeOptions chOptions = new ChromeOptions();
+                   chOptions.AddAdditionalCapability("chrome",CapabilityType.BrowserName);
+                   
+                   _parallelConfig.Driver = new ChromeDriver();
+                   //_parallelConfig.Driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"),chOptions);
+                   
+                   break;
                 case BrowserType.Firefox:
                     break;
                 case BrowserType.Safari:
@@ -73,7 +61,8 @@ namespace AutomationFramework.Base
 
         public virtual void NavigateToSite(string url)
         {
-            DriverContext.Browser.GoToUrl(url);
+           //_parallelConfig.Driver.GoToUrl(url);
+           _parallelConfig.Driver.Navigate().GoToUrl(url);
         }
 
         

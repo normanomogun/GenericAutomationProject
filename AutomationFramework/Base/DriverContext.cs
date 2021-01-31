@@ -5,20 +5,33 @@ using OpenQA.Selenium;
 
 namespace AutomationFramework.Base
 {
-    public static class DriverContext
+    public class DriverContext
     {
-        private static IWebDriver _driver;
+        // private IWebDriver _driver;
+        //
+        // public IWebDriver Driver
+        // {
+        //     get
+        //     {
+        //         return _driver;
+        //     }
+        //     set
+        //     {
+        //         _driver = value;
+        //     }
+        // }
 
-        public static IWebDriver Driver
+        private ParallelConfig _parallelConfig;
+
+        public DriverContext(ParallelConfig parallelConfig)
         {
-            get
-            {
-                return _driver;
-            }
-            set
-            {
-                _driver = value;
-            }
+            _parallelConfig = parallelConfig;
+        }
+
+
+        public void GoToUrl(string url)
+        {
+            _parallelConfig.Driver.Url = url;
         }
 
         public static Browser Browser { get; set; } //Not sure why this is here 

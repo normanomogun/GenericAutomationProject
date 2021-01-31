@@ -8,13 +8,19 @@ namespace AutomationTestProject.Pages
 {
     public class CreateEmployeePage : BasePage
     {
-        public IWebElement NameField => Driver.FindElement(By.Id("Name"));
-        public IWebElement SalaryField => Driver.FindElement(By.Id("Salary"));
-        public IWebElement DurationField => Driver.FindElement(By.Id("DurationWorked"));
-        public IWebElement GradeField => Driver.FindElement(By.Id("Grade"));
-        public IWebElement EmailField => Driver.FindElement(By.Id("Email"));
+        //private ParallelConfig _parallelConfig;
+        public CreateEmployeePage(ParallelConfig parallelConfig) : base(parallelConfig)
+        {
+            
+        }
 
-        public IWebElement CreateBtn => Driver.FindElement(By.CssSelector(".btn.btn-default"));
+        public IWebElement NameField => _parallelConfig.Driver.FindElement(By.Id("Name"));
+        public IWebElement SalaryField => _parallelConfig.Driver.FindElement(By.Id("Salary"));
+        public IWebElement DurationField => _parallelConfig.Driver.FindElement(By.Id("DurationWorked"));
+        public IWebElement GradeField => _parallelConfig.Driver.FindElement(By.Id("Grade"));
+        public IWebElement EmailField => _parallelConfig.Driver.FindElement(By.Id("Email"));
+
+        public IWebElement CreateBtn => _parallelConfig.Driver.FindElement(By.CssSelector(".btn.btn-default"));
         public void EnterDetails(string name, string salary, string durationWorked, string grade, string email)
         {
             NameField.SendKeys(name);
@@ -27,7 +33,9 @@ namespace AutomationTestProject.Pages
         public EmployeeListPage ClickCreateButton()
         {
             CreateBtn.Click();
-            return GetInstance<EmployeeListPage>();
+            return new EmployeeListPage(_parallelConfig);
         }
+
+       
     }
 }

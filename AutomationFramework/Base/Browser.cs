@@ -7,19 +7,14 @@ namespace AutomationFramework.Base
 {
     public class Browser
     {
-        private IWebDriver _driver;
+        private DriverContext _drivercontext;
 
-        public Browser(IWebDriver driver)
+        public Browser(DriverContext driverContext)
         {
-            _driver = driver;
+            _drivercontext = driverContext;
         }
 
         public BrowserType Type { get; set; }
-
-        public void GoToUrl(string url)
-        {
-            DriverContext.Driver.Url = url;
-        }
 
 
     }

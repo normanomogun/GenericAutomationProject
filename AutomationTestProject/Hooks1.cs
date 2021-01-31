@@ -12,6 +12,11 @@ namespace AutomationTestProject
     public sealed class Hooks1 : TestInitializeHook
     {
         //public Hooks1(): base(BrowserType.Chrome) { }
+        private ParallelConfig _parallelConfig;
+        public Hooks1(ParallelConfig parallelConfig) : base(parallelConfig)
+        {
+            _parallelConfig = parallelConfig;
+        }
 
         [BeforeScenario]
         public void BeforeScenario()
@@ -24,9 +29,11 @@ namespace AutomationTestProject
         [AfterScenario]
         public void AfterScenario()
         {
-            DriverContext.Driver.Quit();
+            //DriverContext.Driver.Quit();
+            _parallelConfig.Driver.Quit();
         }
 
-       
+
+        
     }
 }

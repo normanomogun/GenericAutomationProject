@@ -9,7 +9,7 @@ namespace AutomationFramework.Base
     {
         //public IWebDriver Driver { get; set; }
 
-        protected BasePage()
+        protected BasePage(ParallelConfig parallelConfig) : base(parallelConfig)
         {
             // We can't set the driver here as we inherit from baseclass
             //Driver = DriverContext.Driver;
