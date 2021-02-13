@@ -44,10 +44,10 @@ namespace AutomationFramework.Base
                    // DriverContext.Driver = new ChromeDriver();
                     //DriverContext.Browser = new Browser(DriverContext.Driver);
                    ChromeOptions chOptions = new ChromeOptions();
-                   chOptions.AddAdditionalCapability("chrome",CapabilityType.BrowserName);
+                   //chOptions.AddAdditionalCapability("chrome",CapabilityType.BrowserName);
                    
-                   _parallelConfig.Driver = new ChromeDriver();
-                   //_parallelConfig.Driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"),chOptions);
+                   _parallelConfig.Driver = new ChromeDriver(); //This is what works at the minute
+                   //_parallelConfig.Driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"),chOptions); works on grid so create a switch for it
                    
                    break;
                 case BrowserType.Firefox:
