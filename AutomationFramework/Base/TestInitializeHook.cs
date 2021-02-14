@@ -29,39 +29,60 @@ namespace AutomationFramework.Base
         public void InitializeSettings()
         {
             ConfigReader.SetFrameworkSettings();
-            OpenBrowser(Settings.Browser);
+            OpenBrowser(Settings.Browser, Settings.RunType);
             //OpenBrowser(GetBrowserOptions(Settings.Browser));
         }
 
 
-        private void OpenBrowser(BrowserType browserType)
+        private void OpenBrowser(BrowserType browserType, string runType)
         {
-            switch (browserType)
+            switch (runType.ToLower())
             {
-                case BrowserType.Internet_explorer:
+                case "grid":
+                    switch (browserType)
+                    {
+                        case BrowserType.Internet_explorer:
+                            break;
+                        case BrowserType.Chrome:
+                            ChromeOptions chOptions = new ChromeOptions();
+                            chOptions.AddArgument("start-maximized");
+                            _parallelConfig.Driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"), chOptions); 
+                            break;
+                        case BrowserType.Firefox:
+                            break;
+                        case BrowserType.Safari:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(browserType), browserType, null);
+                    }
+
                     break;
-                case BrowserType.Chrome:
-                   // DriverContext.Driver = new ChromeDriver();
-                    //DriverContext.Browser = new Browser(DriverContext.Driver);
-                   ChromeOptions chOptions = new ChromeOptions();
-                   //chOptions.AddAdditionalCapability("chrome",CapabilityType.BrowserName);
-                   
-                   _parallelConfig.Driver = new ChromeDriver(); //This is what works at the minute
-                   //_parallelConfig.Driver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"),chOptions); works on grid so create a switch for it
-                   
-                   break;
-                case BrowserType.Firefox:
-                    break;
-                case BrowserType.Safari:
+                case "local":
+                    switch (browserType)
+                    {
+                        case BrowserType.Internet_explorer:
+                            break;
+                        case BrowserType.Chrome:
+                            ChromeOptions chOptions = new ChromeOptions();
+                            chOptions.AddArgument("start-maximized");
+                            _parallelConfig.Driver = new ChromeDriver(chOptions); 
+
+                            break;
+                        case BrowserType.Firefox:
+                            break;
+                        case BrowserType.Safari:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(browserType), browserType, null);
+                    }
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(browserType), browserType, null);
+                    throw new Exception($"Check spelling for run type setting: '{runType}'! it should be either 'grid' or 'local'");
             }
         }
 
         public virtual void NavigateToSite(string url)
         {
-           //_parallelConfig.Driver.GoToUrl(url);
            _parallelConfig.Driver.Navigate().GoToUrl(url);
         }
 

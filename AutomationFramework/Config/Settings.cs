@@ -9,5 +9,6 @@ namespace AutomationFramework.Config
     {
         public static string AUT { get; set; }
         public static BrowserType Browser { get; set; }
+        public static string RunType { get; set; }
     }
 }

@@ -15,5 +15,8 @@ namespace AutomationFramework.Config
         [JsonProperty("browser")]
         public BrowserType Browser { get; set; }
 
+        [JsonProperty("runType")]
+        public string RunType { get; set; }
+
     }
 }

@@ -16,6 +16,7 @@ namespace AutomationFramework.Config
             IConfigurationRoot config = builder.Build();
             Settings.AUT = config.GetSection("testsettings").Get<TestSettings>().AUT;
             Settings.Browser = config.GetSection("testsettings").Get<TestSettings>().Browser;
+            Settings.RunType = config.GetSection("testsettings").Get<TestSettings>().RunType;
         }
     }
 }
