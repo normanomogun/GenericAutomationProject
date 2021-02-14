@@ -35,4 +35,5 @@ services:
       #docker-compose restart (To Retart the grid)
       #docker-compose down (tear down the grid)
       #docker ps -a (list all the imagies and status)
-      
+      #http://localhost:4444/grid/console
+      #make sure you are in the project where the yml resides 

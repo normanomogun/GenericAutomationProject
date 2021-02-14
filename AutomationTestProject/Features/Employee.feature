@@ -1,6 +1,6 @@
 ﻿Feature: Employee
 	Test employee pages working correctly
-
+@TestEmployee
 Scenario: Create Employee with details 
 	Given I am on the EA website
 	When I click login link 
