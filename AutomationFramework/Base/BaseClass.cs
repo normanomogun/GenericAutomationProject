@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Schema;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using TechTalk.SpecFlow;
 
 
@@ -50,6 +51,16 @@ namespace AutomationFramework.Base
         public TPage As<TPage>() where TPage : BasePage
         {
             return (TPage)this;
+        }
+
+        public WebDriverWait BaseWebDriverWait(int timeMilliseconds)
+        {
+            var webdriverWait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(timeMilliseconds));
+            webdriverWait.IgnoreExceptionTypes(
+                typeof(StaleElementReferenceException), 
+                typeof(NoSuchElementException),
+                typeof(ElementNotVisibleException));
+            return webdriverWait;
         }
     }
 }

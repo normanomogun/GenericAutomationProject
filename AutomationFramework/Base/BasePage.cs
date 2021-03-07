@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace AutomationFramework.Base
 {
@@ -14,5 +15,6 @@ namespace AutomationFramework.Base
             // We can't set the driver here as we inherit from baseclass
             //Driver = DriverContext.Driver;
         }
+
     }
 }
